@@ -37,4 +37,12 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
     }
+    protected function redirectTo()
+    {
+        if (auth()->user()->tipo_usuario === 'taller') {
+            return '/taller/dashboardTaller';
+        } else {
+            return '/cliente/buscarTalleres';
+        }
+    }
 }

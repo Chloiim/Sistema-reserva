@@ -36,6 +36,16 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
+                         @auth
+                            @if (Auth::user()->tipo_usuario === 'cliente')
+                                <a href="/cliente/buscarTalleres">Buscar Talleres</a>
+                                <a href="/cliente/misReservas">Mis Reservas</a>
+                            @elseif (Auth::user()->tipo_usuario === 'taller')
+                                <a href="/taller/dashboardTaller">Dashboard</a>
+                                <a href="/taller/servicio">Servicios</a>
+                                <a href="/taller/reservas">Reservas</a>
+                            @endif
+                        @endauth
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">

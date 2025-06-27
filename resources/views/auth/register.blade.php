@@ -38,7 +38,15 @@
                                 @enderror
                             </div>
                         </div>
-
+                        <div class="row mb-3">
+                            <label for="tipo_usuario" class="col-md-4 col-form-label text-md-end">{{ __('Tipo de Usuario') }}</label>
+                            <div class="col-md-6">
+                                <select name="tipo_usuario" id="tipo_usuario" required>
+                                    <option value="cliente">Cliente</option>
+                                    <option value="taller">Taller</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
