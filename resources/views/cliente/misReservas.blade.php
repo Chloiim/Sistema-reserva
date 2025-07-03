@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,9 +9,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
-<body>
+<body> 
   <h2>Mis Reservas</h2>
-  <table border="1">
+  <table class="table">
     <tr>
       <th>Taller</th>
       <th>Servicio</th>
@@ -18,4 +22,5 @@
   </table>
 </body>
 </html>
+@endsection
 

@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +11,7 @@
 </head>
 <body>
     <h2>Reservas del Taller</h2>
-    <table border="1">
+    <table class="table">
         <tr>
             <th>Cliente</th>
             <th>Servicio</th>
@@ -18,3 +22,4 @@
     </table>
 </body>
 </html>
+@endsection

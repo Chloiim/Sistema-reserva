@@ -36,16 +36,30 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
-                         @auth
-                            @if (Auth::user()->tipo_usuario === 'cliente')
-                                <a href="/cliente/buscarTalleres">Buscar Talleres</a>
-                                <a href="/cliente/misReservas">Mis Reservas</a>
-                            @elseif (Auth::user()->tipo_usuario === 'taller')
-                                <a href="/taller/dashboardTaller">Dashboard</a>
-                                <a href="/taller/servicio">Servicios</a>
-                                <a href="/taller/reservas">Reservas</a>
-                            @endif
-                        @endauth
+                         <ul class="navbar-nav me-auto">
+                            @auth
+                                {{-- MENÚ PARA TALLER --}}
+                                @if(Auth::user()->tipo_usuario === 'taller')
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('servicios.index') }}">Mis Servicios</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('taller.reservas.index') }}">Reservas Recibidas</a>
+                                    </li>
+                                    {{-- Aquí puedes agregar más como técnicos, horarios, etc --}}
+                                @endif
+
+                                {{-- MENÚ PARA CLIENTE --}}
+                                @if(Auth::user()->tipo_usuario === 'cliente')
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('reservas.index') }}">Mis Reservas</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('reservas.create') }}">Nueva Reserva</a>
+                                    </li>
+                                @endif
+                            @endauth
+                        </ul>
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">

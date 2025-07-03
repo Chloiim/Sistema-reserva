@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,15 +11,15 @@
 </head>
 <body>
     <h2>Perfil del Taller</h2>
-    <p>Nombre:</p>
-    <p>Direccion:</p>
-    <p>Telefono:</p>
-
-    <h3>Servicios</h3>
-    <ul>
-        <li>Mantenimiento</li>
-        <li>Diagnóstico</li>
-    </ul>
-    
+    <p><strong>Nombre:</strong></p>
+    <p><strong>Direccion:</strong></p>
+    <p><strong>Telefono:</strong></p>
+    <p><strong>Servicios:</strong></p>
+  <ul>
+    <li>Mantenimiento general</li>
+    <li>Revisión de frenos</li>
+  </ul>
+  <a href="/reservar" class="btn btn-primary">Reservar Cita</a>
 </body>
 </html>
+@endsection

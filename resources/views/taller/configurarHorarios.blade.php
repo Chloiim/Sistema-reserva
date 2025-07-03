@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,18 +13,23 @@
     <h2>Configurar Horarios</h2>
     <form>
         <label>Día:</label><br>
-        <select name="dia">
+        <select name="dia" class="btn btn-secondary">
             <option>Lunes</option>
             <option>Martes</option>
+            <option>Miércoles</option>
+            <option>Jueves</option>
+            <option>Viernes</option>
+            <option>Sábado</option>
         </select><br><br>
 
         <label>Hora de inicio:</label><br>
-        <input type="time" name="inicio"><br><br>
+        <input type="time" class="btn btn-secondary" name="inicio"><br><br>
 
         <label>Hora de fin:</label><br>
-        <input type="time" name="fin"><br><br>
+        <input type="time" class="btn btn-secondary" name="fin"><br><br>
 
-        <button type="submit">Guardar</button>
+        <button type="submit" class="btn btn-primary" >Guardar</button>
     </form>
 </body>
 </html>
+@endsection

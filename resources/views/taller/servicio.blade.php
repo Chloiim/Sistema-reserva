@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,16 +11,23 @@
 </head>
 <body>
     <h2>Servicios del Taller</h2>
-
-    <button>Agregar Servicio</button>
-
-    <table border="1">
+    <button class="btn btn-primary">Agregar Servicio</button>
+    <br><br>
+    <table class="table">
         <tr>
             <th>Nombre</th>
             <th>Descripción</th>
             <th>Precio</th>
             <th>Acción</th>
         </tr>
+        <tr>
+            
+            <td>
+                <!-- <button class="btn btn-warning btn-sm">Editar</button>
+                <button class="btn btn-danger btn-sm">Eliminar</button> -->
+            </td>
+        </tr>
     </table>
 </body>
 </html>
+@endsection

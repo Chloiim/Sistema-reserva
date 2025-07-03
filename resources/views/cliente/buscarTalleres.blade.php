@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,11 +11,27 @@
 </head>
 <body>
     <h2>Buscar Talleres</h2>
-    <form>
+        <form class="mb-4">
         @csrf
-        <label for="busqueda">Buscar Talleres por Ubicación o Servicio:</label>
-        <input type="text" name="busqueda">
-        <button type="submit">Buscar</button>
-    </form>
+        <input type="text" class=" form-control" name="busqueda" placeholder="Buscar por ubicación o nombre">
+        </form>
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Ubicación</th>
+        <th>Servicios</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        
+        <!-- <td><a href="taller/perfilTaller" class="btn btn-primary btn-sm">Ver</a></td> -->
+      </tr>
+    </tbody>
+  </table>
 </body>
 </html>
+</div>
+@endsection
