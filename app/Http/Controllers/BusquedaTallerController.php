@@ -10,18 +10,20 @@ class BusquedaTallerController extends Controller
     {
         $query = \App\Models\User::where('tipo_usuario', 'taller');
 
-        if ($request->filled('ubicacion')) {
-            $query->where('ubicacion', 'like', '%' . $request->ubicacion . '%');
-        }
+        if ($request->filled('busqueda')) {
+            $busqueda = $request->busqueda;
 
-        if ($request->filled('servicio')) {
-            $query->whereHas('servicios', function ($q) use ($request) {
-                $q->where('nombre', 'like', '%' . $request->servicio . '%');
+            $query->where(function ($q) use ($busqueda) {
+                $q->where('name', 'like', '%' . $busqueda . '%')
+                  ->orWhere('ubicacion', 'like', '%' . $busqueda . '%')
+                  ->orWhereHas('servicios', function ($servicios) use ($busqueda) {
+                      $servicios->where('nombre', 'like', '%' . $busqueda . '%');
+                  });
             });
         }
 
         $talleres = $query->with('servicios')->get();
 
-        return view('busqueda.index', compact('talleres'));
+        return view('busqueda.buscarTalleres', compact('talleres'));
     }
 }
