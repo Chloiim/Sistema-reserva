@@ -20,8 +20,8 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="navbar-brand" href="{{ url('/home') }}">
+                    Sistema
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -41,6 +41,12 @@
                                 {{-- MENÚ PARA TALLER --}}
                                 @if(Auth::user()->tipo_usuario === 'taller')
                                     <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('taller.dashboard') }}">Dashboard</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('taller.mi-perfil') }}">Mi Perfil</a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a class="nav-link" href="{{ route('servicios.index') }}">Mis Servicios</a>
                                     </li>
                                     <li class="nav-item">
@@ -51,6 +57,9 @@
 
                                 {{-- MENÚ PARA CLIENTE --}}
                                 @if(Auth::user()->tipo_usuario === 'cliente')
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('cliente.buscarTalleres') }}">Buscar Talleres</a>
+                                    </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('reservas.index') }}">Mis Reservas</a>
                                     </li>
@@ -99,6 +108,7 @@
         <main class="py-4">
             @yield('content')
         </main>
+        @yield('scripts')
     </div>
 </body>
 </html>
