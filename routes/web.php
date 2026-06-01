@@ -21,7 +21,9 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/buscar-talleres', [BusquedaTallerController::class, 'index'])->name('busqueda.resultados');
-Route::get('/taller/{id}', [PublicoController::class, 'perfil'])->name('taller.perfil');
+Route::get('/taller/{id}', [PublicoController::class, 'perfil'])
+    ->whereNumber('id')
+    ->name('taller.perfil');
 // Route::get('/api/taller/{id}/servicios', function ($id) {
 //     $servicios = \App\Models\Servicio::where('taller_id', $id)->get();
 //     return response()->json($servicios);
