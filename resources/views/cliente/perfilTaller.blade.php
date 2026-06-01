@@ -2,24 +2,37 @@
 
 @section('content')
 <div class="container">
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h2>Perfil del Taller</h2>
-    <p><strong>Nombre:</strong></p>
-    <p><strong>Direccion:</strong></p>
-    <p><strong>Telefono:</strong></p>
-    <p><strong>Servicios:</strong></p>
-  <ul>
-    <li>Mantenimiento general</li>
-    <li>Revisión de frenos</li>
-  </ul>
-  <a href="/reservar" class="btn btn-primary">Reservar Cita</a>
-</body>
-</html>
+    <div class="row">
+        <div class="col-12">
+            <h2>Perfil del Taller</h2>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">{{ $taller->name }}</h4>
+                    <p><strong>Ubicación:</strong> {{ $taller->ubicacion ?? 'No registrada' }}</p>
+                    <p><strong>Dirección:</strong> {{ $taller->direccion ?? 'No registrada' }}</p>
+                    <p><strong>Teléfono:</strong> {{ $taller->telefono ?? 'No registrado' }}</p>
+                    <p><strong>Descripción:</strong> {{ $taller->descripcion ?? 'Sin descripción' }}</p>
+
+                    <h5 class="mt-4">Servicios</h5>
+                    @if($taller->servicios->count())
+                        <ul>
+                            @foreach($taller->servicios as $servicio)
+                                <li>{{ $servicio->nombre }} - S/ {{ number_format($servicio->precio, 2) }}</li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <p>Este taller aún no ha registrado servicios.</p>
+                    @endif
+
+                    <a href="{{ route('reservas.create', ['taller_id' => $taller->id]) }}" class="btn btn-primary mt-3">Reservar Cita</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

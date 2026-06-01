@@ -4,27 +4,38 @@
 <div class="container">
     <h2>Crear Reserva</h2>
 
-    <form action="{{ route('reservas.store') }}" method="POST">
-        @csrf
-
-        {{-- SELECCIONAR TALLER --}}
+    {{-- Formulario para seleccionar taller y cargar servicios (GET) --}}
+    <form method="GET" action="{{ route('reservas.create') }}" class="mb-4">
         <div class="mb-3">
-            <label for="taller_id" class="form-label">Taller</label>
-            <select name="taller_id" id="taller_id" class="form-select" required>
+            <label for="taller_id" class="form-label">Seleccionar Taller</label>
+            <select name="taller_id" id="taller_id" class="form-select" onchange="this.form.submit()">
                 <option value="">Seleccione un taller</option>
                 @foreach ($talleres as $taller)
-                    <option value="{{ $taller->id }}" {{ request('taller_id') == $taller->id ? 'selected' : '' }}>
+                    <option value="{{ $taller->id }}" {{ (int) ($taller_id ?? 0) === $taller->id ? 'selected' : '' }}>
                         {{ $taller->name }} - {{ $taller->ubicacion }}
                     </option>
                 @endforeach
             </select>
         </div>
+    </form>
+
+    {{-- Formulario de reserva (POST) --}}
+    <form action="{{ route('reservas.store') }}" method="POST">
+        @csrf
+        <input type="hidden" name="taller_id" value="{{ $taller_id ?? '' }}">
 
         {{-- SELECCIONAR SERVICIO --}}
         <div class="mb-3">
             <label for="servicio_id" class="form-label">Servicio</label>
-            <select name="servicio_id" id="servicio_id" class="form-select" required>
-                <option value="">-- Selecciona un servicio --</option>
+            <select name="servicio_id" id="servicio_id" class="form-select" required @if(empty($servicios) || $servicios->isEmpty()) disabled @endif>
+                @if(!empty($servicios) && $servicios->count())
+                    <option value="">-- Selecciona un servicio --</option>
+                    @foreach ($servicios as $servicio)
+                        <option value="{{ $servicio->id }}">{{ $servicio->nombre }} - S/ {{ $servicio->precio }}</option>
+                    @endforeach
+                @else
+                    <option value="">No hay servicios cargados para el taller seleccionado</option>
+                @endif
             </select>
         </div>
 
@@ -40,38 +51,11 @@
             <input type="time" name="hora" class="form-control" required>
         </div>
 
-        <button type="submit" class="btn btn-success">Reservar</button>
+        <button type="submit" class="btn btn-success" @if(empty($servicios) || $servicios->isEmpty()) disabled @endif>Reservar</button>
         <a href="{{ route('reservas.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
 @endsection
 
 @section('scripts')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    function cargarServicios(tallerId, servicioId = null) {
-        if (!tallerId) {
-            $('#servicio_id').html('<option value="">Seleccione un servicio</option>');
-            return;
-        }
-
-        $.get(`/api/taller/${tallerId}/servicios`, function(servicios) {
-            let opciones = '<option value="">Seleccione un servicio</option>';
-            servicios.forEach(function(servicio) {
-                let selected = (servicioId == servicio.id) ? 'selected' : '';
-                opciones += `<option value="${servicio.id}" ${selected}>${servicio.nombre} - S/ ${servicio.precio}</option>`;
-            });
-            $('#servicio_id').html(opciones);
-        });
-    }
-
-    $(document).ready(function () {
-        let tallerInicial = $('#taller_id').val();
-        cargarServicios(tallerInicial);
-
-        $('#taller_id').on('change', function () {
-            cargarServicios(this.value);
-        });
-    });
-</script>
 @endsection
