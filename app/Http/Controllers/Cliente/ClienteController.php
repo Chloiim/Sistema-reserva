@@ -4,22 +4,29 @@ namespace App\Http\Controllers\Cliente;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class ClienteController extends Controller
 {
     public function buscarTalleres()
     {
-        return view('cliente/buscarTalleres');
+        $talleres = User::where('tipo_usuario', 'taller')->with('servicios')->get();
+
+        return view('cliente.buscarTalleres', compact('talleres'));
     }
 
-    public function perfilTaller()
+    public function perfilTaller($id)
     {
-        return view('cliente/perfilTaller');
+        $taller = User::with('servicios')
+            ->where('tipo_usuario', 'taller')
+            ->where('id', $id)
+            ->firstOrFail();
+        return view('cliente.perfilTaller', compact('taller'));
     }
 
     public function reservar()
     {
-        return view('cliente/reservar');
+        return redirect()->route('reservas.create');
     }
 
     public function misReservas()

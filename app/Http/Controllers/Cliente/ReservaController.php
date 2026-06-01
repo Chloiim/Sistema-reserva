@@ -26,9 +26,16 @@ class ReservaController extends Controller
     {
         $talleres = \App\Models\User::where('tipo_usuario', 'taller')->get();
 
+        $taller_id = $request->query('taller_id');
+        $servicios = collect();
+        if ($taller_id) {
+            $servicios = Servicio::where('taller_id', $taller_id)->get();
+        }
+
         return view('cliente.reservas.create', [
             'talleres' => $talleres,
-            'taller_id' => $request->taller_id // opcional si quieres pasarlo aparte
+            'taller_id' => $taller_id,
+            'servicios' => $servicios,
         ]);
     }
 
