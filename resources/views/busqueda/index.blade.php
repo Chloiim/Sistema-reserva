@@ -6,10 +6,7 @@
 <form action="{{ route('busqueda.resultados') }}" method="GET">
     <div class="row mb-3">
         <div class="col">
-            <input type="text" name="ubicacion" class="form-control" placeholder="Ciudad, distrito..." value="{{ request('ubicacion') }}">
-        </div>
-        <div class="col">
-            <input type="text" name="servicio" class="form-control" placeholder="Servicio (ej: frenos)" value="{{ request('servicio') }}">
+            <input type="text" name="busqueda" class="form-control" placeholder="Buscar por nombre, ubicación o servicio" value="{{ request('busqueda') }}">
         </div>
         <div class="col">
             <button type="submit" class="btn btn-primary">Buscar Talleres</button>

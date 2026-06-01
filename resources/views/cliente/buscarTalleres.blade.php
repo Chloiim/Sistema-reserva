@@ -25,10 +25,22 @@
       </tr>
     </thead>
     <tbody>
+    @foreach($talleres as $taller)
       <tr>
-        
-        <!-- <td><a href="taller/perfilTaller" class="btn btn-primary btn-sm">Ver</a></td> -->
+        <td>{{ $taller->name }}</td>
+        <td>{{ $taller->ubicacion }}</td>
+        <td>
+          @if($taller->servicios->count())
+            {{ implode(', ', $taller->servicios->pluck('nombre')->toArray()) }}
+          @else
+            Sin servicios
+          @endif
+        </td>
+        <td>
+          <a href="{{ route('cliente.perfilTaller', $taller->id) }}" class="btn btn-primary btn-sm">Ver perfil</a>
+        </td>
       </tr>
+    @endforeach
     </tbody>
   </table>
 </body>
