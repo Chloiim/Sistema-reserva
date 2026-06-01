@@ -31,8 +31,8 @@ Route::get('/taller/{id}', [PublicoController::class, 'perfil'])
 
 // Cliente
 Route:: middleware(['auth', VerificarTipoUsuario::class . ':cliente'])->prefix('cliente')->group(function () {
-    Route::get('/buscarTalleres', [ClienteController:: class, 'buscarTalleres']);
-    Route::get('/perfilTaller', [ClienteController:: class, 'perfilTaller']);
+    Route::get('/buscarTalleres', [ClienteController:: class, 'buscarTalleres'])->name('cliente.buscarTalleres');
+    Route::get('/perfilTaller/{id}', [ClienteController:: class, 'perfilTaller'])->name('cliente.perfilTaller');
     Route::get('/reservar', [ClienteController:: class, 'reservar']);
     Route::get('/misReservas', [ClienteController:: class, 'misReservas']);
     
@@ -46,7 +46,10 @@ Route::middleware(['auth', VerificarTipoUsuario::class . ':cliente'])->prefix('c
 
 // Taller
 Route::middleware(['auth', VerificarTipoUsuario::class . ':taller'])->prefix('taller')->group(function () {
-    Route::get('/dashboardTaller', [TallerController::class, 'dashboard']);
+    Route::get('/dashboardTaller', [TallerController::class, 'dashboard'])->name('taller.dashboard');
+    Route::get('/perfil', [TallerController::class, 'perfil'])->name('taller.mi-perfil');
+    Route::get('/perfil/editar', [TallerController::class, 'editarPerfil'])->name('taller.mi-perfil.edit');
+    Route::put('/perfil', [TallerController::class, 'actualizarPerfil'])->name('taller.mi-perfil.update');
     Route::get('/configurarHorarios', [TallerController::class, 'configurarHorarios']);
     Route::get('/servicio', [TallerController::class, 'servicios']);
     //Route::get('/reservas', [TallerController::class, 'reservas']);
