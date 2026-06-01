@@ -39,10 +39,6 @@ class LoginController extends Controller
     }
     protected function redirectTo()
     {
-        if (auth()->user()->tipo_usuario === 'taller') {
-            return '/taller/dashboardTaller';
-        } else {
-            return '/cliente/buscarTalleres';
-        }
+        return '/home';
     }
 }
